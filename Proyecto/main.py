@@ -76,11 +76,11 @@ def animal():
         search = True
 
     page = request.args.get('page', type=int, default=1)
-    animales = separar(5,page,17,listaAnimales)
-    pagination = Pagination(page=page, total=17,per_page=5, search=search)
+    animales = separar(5,page,len(listaAnimales),listaAnimales)
+    pagination = Pagination(page=page, total=len(listaAnimales),per_page=5, search=search)
     return render_template('animal.html',
                            animales=animales,
-                           pagination=pagination,lista=animales
+                           pagination=pagination,listaAnimales=animales,
                            )
 @app.route('/enfermedad')
 def enfermedad():
@@ -94,12 +94,12 @@ def enfermedad():
     pagination = Pagination(page=page, total=len(listaEnfermedades),per_page=5, search=search)
     return render_template('enfermedad.html',
                            animales=enfermedad,
-                           pagination=pagination, lista=enfermedad
+                           pagination=pagination, listaEnfermedades=enfermedad,
                            )
 
 #Es el encargado de correr el programa
 if __name__ == "__main__":
-    app.run(debug=True,port=8080)
+    app.run(debug=True,port=5050)
 
 
   #  dfsghjk.lfytynrtfdvycxbhstr jg
