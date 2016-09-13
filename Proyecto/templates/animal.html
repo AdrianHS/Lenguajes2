@@ -13,7 +13,15 @@
             </tr>
         </thead>
         <tbody>
+        <form action="/animal" method= "post">
+            <div class="buscar">
+                <input type="text" name="busc" placeholder="Buscar" value="{{ request.form.busc }}">
+                <input type="submit" name="boton" value="Buscar" class="btn">
 
+
+            </div>
+            </form>
+        {{palBusc}}
             {% for a in listaAnimales %}
             <tr>
                 <td>{{a.nombre}}</td>
