@@ -1,10 +1,35 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+<!doctype html>
+<title>Usuario</title>
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename= 'style.css') }}">
 
+<body class="bodyAnimal">
+<div    class="contenedor">
+    <table class="tabla" border="1">
+        <thead>
+            <tr>
+                <th>Username</th>
+                <th>Password</th>
+                <th>Nombre</th>
+                <th>Admin</th>
+                <th>Foto</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            {% for a in listaUsuarios %}
+            <tr>
+                <td>{{a.username}}</td>
+                <td>{{a.password}}</td>
+                <td>{{a.nombre}}</td>
+                <td>{{a.admin}}</td>
+                <td>{{a.foto}}</td>
+            </tr>
+
+            {%endfor%}
+        </tbody>
+    </table>
+    <ul class="pagination">
+        {{ pagination.links }}
+    </ul>
+    </div>
 </body>
-</html>
