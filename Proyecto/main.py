@@ -9,7 +9,7 @@ listaEnfermedades=[]
 listaMedicamentos=[]
 
 def consulta():
-    conn =mysql.connector.connect(user='root',password='12345',host='localhost',database='veterinaria')
+    conn =mysql.connector.connect(user='root',password='1234',host='localhost',database='veterinaria')
     mycursor = conn.cursor()
     mycursor.execute("SELECT * FROM animal")
     #print("ID     Nombre   edad   descripcion")
@@ -22,7 +22,7 @@ def consulta():
 consulta()
 
 def consultaEnfermedad():
-    conn =mysql.connector.connect(user='root',password='12345',host='localhost',database='veterinaria')
+    conn =mysql.connector.connect(user='root',password='1234',host='localhost',database='veterinaria')
     mycursor = conn.cursor()
     mycursor.execute("SELECT * FROM enfermedad")
 
@@ -99,7 +99,7 @@ def enfermedad():
 
 #Es el encargado de correr el programa
 if __name__ == "__main__":
-    app.run(debug=True,port=5050)
+    app.run(debug=True,port=8080)
 
 
   #  dfsghjk.lfytynrtfdvycxbhstr jg
