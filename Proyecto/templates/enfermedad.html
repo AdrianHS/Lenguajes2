@@ -1,0 +1,33 @@
+<!doctype html>
+<title>Enfermedades</title>
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename= 'style.css') }}">
+
+<body class="bodyAnimal">
+<div    class="contenedor">
+    <table class="tabla" border="1">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Descripcion</th>
+                <th>Foto</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            {% for a in listaEnfermedades %}
+            <tr>
+                <td>{{a.nombre}}</td>
+                <td>{{a.descripcion}}</td>
+                <td>{{a.foto}}</td>
+            </tr>
+
+            {%endfor%}
+        </tbody>
+    </table>
+    <ul class="pagination">
+        {{ pagination.links }}
+    </ul>
+    </div>
+</body>
+
+

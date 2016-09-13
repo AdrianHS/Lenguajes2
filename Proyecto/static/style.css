@@ -1,0 +1,67 @@
+body{
+
+    background-image: url("../static/images/fondo.jpg");
+}
+
+.cosa{
+    width: 450px;
+    height: 400px;
+    text-align: center;
+    background-color: #b3d7ff;
+    border-radius: 10px;
+    margin: 0 auto;
+    margin-top: 100px; 
+}
+
+.cosa img{
+	width: 120px;
+	height: 120px;
+	border-radius: 4px;
+	margin-top: -30px;
+	margin-bottom: 50px;
+	margin-right: 300px;
+ }
+
+input {
+    text-align: center;
+	width: 200px;
+	height: 35px;
+	border-radius: 4px;
+	front-size: 50px;
+	margin-top: 10px;
+	background-color: #fff
+}
+.btn{
+	padding: 15px 0px;
+	height: 40px;
+	border-radius: 4px;
+	color: white;
+	border: none;
+	background-color: blue;
+}
+.contenedor{
+    margin: 0 auto;
+    margin-top: 200px;
+}
+.tabla{
+	border:4px;
+	background-color:white;
+	color:blue;
+	margin: 0 auto;
+	width:50%;
+}
+ul.pagination {
+    display:inline-block;
+    margin: 0 auto;
+    position: center;
+}
+ul.pagination li{
+	display: inline;
+	color:white;
+
+}
+ul.pagination li a{
+	display: inline;
+	padding: 8px 16px;
+
+}
