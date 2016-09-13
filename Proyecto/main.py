@@ -8,6 +8,7 @@ listaAnimales=[]
 listaEnfermedades=[]
 listaMedicamentos=[]
 
+#Hola
 def consulta():
     conn =mysql.connector.connect(user='root',password='1234',host='localhost',database='veterinaria')
     mycursor = conn.cursor()
