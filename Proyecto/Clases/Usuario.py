@@ -1,4 +1,4 @@
-class Animal:
+class Usuario:
     def __init__(self):
         self.username = ""
         self.password = ""
@@ -6,9 +6,9 @@ class Animal:
         self.admin = ""
         self.foto = ""
 
-    def crear(self, username, password, nombre, descripcion, foto):
-        self.nombre = username
-        self.nombre = password
+    def crear(self, username, password, nombre, admin, foto):
+        self.username = username
+        self.password = password
         self.nombre = nombre
-        self.descripcion = descripcion
+        self.admin = admin
         self.foto = foto
