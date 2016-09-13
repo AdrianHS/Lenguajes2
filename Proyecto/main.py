@@ -126,12 +126,15 @@ def separar(num,pagina,count,lista1):
 def principal():
     return render_template('principal.html')
 
-@app.route('/animal')
+@app.route('/animal', methods=['GET', 'POST'])
 def animal():
     search = False
     q = request.args.get('q')
     if q:
         search = True
+    palBusc=""
+    if request.method == 'POST':
+        palBusc = request.form['busc']
 
     page = request.args.get('page', type=int, default=1)
     animales = separar(5,page,len(listaAnimales),listaAnimales)
@@ -139,6 +142,7 @@ def animal():
     return render_template('animal.html',
                            animales=animales,
                            pagination=pagination,listaAnimales=animales,
+                           palBusc=palBusc,
                            )
 @app.route('/enfermedad')
 def enfermedad():
