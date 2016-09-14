@@ -7,6 +7,7 @@ from Clases.Usuario import *
 from Clases.Prescripcion import *
 from Clases.Dosis import *
 from flask_paginate import Pagination
+from Funciones import *
 
 listaAnimales=[]
 listaEnfermedades=[]
@@ -17,7 +18,7 @@ listaDosis = []
 
 
 def consulta():
-    conn =mysql.connector.connect(user='root',password='12345',host='localhost',database='veterinaria')
+    conn =mysql.connector.connect(user='root',password='1234',host='localhost',database='veterinaria')
     mycursor = conn.cursor()
     mycursor.execute("SELECT * FROM animal")
 
@@ -29,7 +30,7 @@ def consulta():
 consulta()
 
 def consultaEnfermedad():
-    conn =mysql.connector.connect(user='root',password='12345',host='localhost',database='veterinaria')
+    conn =mysql.connector.connect(user='root',password='1234',host='localhost',database='veterinaria')
     mycursor = conn.cursor()
     mycursor.execute("SELECT * FROM enfermedad")
 
@@ -41,7 +42,7 @@ def consultaEnfermedad():
 consultaEnfermedad()
 
 def consultaMedicamentos():
-    conn =mysql.connector.connect(user='root',password='12345',host='localhost',database='veterinaria')
+    conn =mysql.connector.connect(user='root',password='1234',host='localhost',database='veterinaria')
     mycursor = conn.cursor()
     mycursor.execute("SELECT * FROM medicamentos")
 
@@ -53,7 +54,7 @@ def consultaMedicamentos():
 consultaMedicamentos()
 
 def consultaUsuario():
-    conn =mysql.connector.connect(user='root',password='12345',host='localhost',database='veterinaria')
+    conn =mysql.connector.connect(user='root',password='1234',host='localhost',database='veterinaria')
     mycursor = conn.cursor()
     mycursor.execute("SELECT * FROM usuario")
 
@@ -65,7 +66,7 @@ def consultaUsuario():
 consultaUsuario()
 
 def consultaPrescripcion():
-    conn =mysql.connector.connect(user='root',password='12345',host='localhost',database='veterinaria')
+    conn =mysql.connector.connect(user='root',password='1234',host='localhost',database='veterinaria')
     mycursor = conn.cursor()
     mycursor.execute("SELECT * FROM prescripcion")
 
@@ -77,7 +78,7 @@ def consultaPrescripcion():
 consultaPrescripcion()
 
 def consultaDosis():
-    conn =mysql.connector.connect(user='root',password='12345',host='localhost',database='veterinaria')
+    conn =mysql.connector.connect(user='root',password='1234',host='localhost',database='veterinaria')
     mycursor = conn.cursor()
     mycursor.execute("SELECT * FROM dosis")
 
@@ -132,44 +133,99 @@ def animal():
     q = request.args.get('q')
     if q:
         search = True
-    palBusc=""
-    if request.method == 'POST':
-        palBusc = request.form['busc']
+    li=[]
 
-    page = request.args.get('page', type=int, default=1)
-    animales = separar(5,page,len(listaAnimales),listaAnimales)
-    pagination = Pagination(page=page, total=len(listaAnimales),per_page=5, search=search)
+    if request.method == 'POST':
+        #Si no se busca una palabra
+        if request.form['busc']=="":
+            page = request.args.get('page', type=int, default=1)
+            animales = separar(5,page,len(listaAnimales),listaAnimales)
+            pagination = Pagination(page=page, total=len(listaAnimales),per_page=5, search=search)
+
+        #Si se busca una palabra
+        else:
+            palBusc = request.form['busc']
+            li=[buscar(listaAnimales,palBusc)]
+
+            page = request.args.get('page', type=int, default=1)
+            animales = separar(5,page,len(li),li)
+            pagination = Pagination(page=page, total=len(li),per_page=5, search=search)
+    #Inicia con todos los elementos
+    else:
+        page = request.args.get('page', type=int, default=1)
+        animales = separar(5,page,len(listaAnimales),listaAnimales)
+        pagination = Pagination(page=page, total=len(listaAnimales),per_page=5, search=search)
+
     return render_template('animal.html',
                            animales=animales,
                            pagination=pagination,listaAnimales=animales,
-                           palBusc=palBusc,
+                           li=li,
                            )
-@app.route('/enfermedad')
+@app.route('/enfermedad', methods=['GET', 'POST'])
 def enfermedad():
     search = False
     q = request.args.get('q')
     if q:
         search = True
 
-    page = request.args.get('page', type=int, default=1)
-    enfermedad = separar(5,page,len(listaEnfermedades),listaEnfermedades)
-    pagination = Pagination(page=page, total=len(listaEnfermedades),per_page=5, search=search)
+    li=[]
+    if request.method == 'POST':
+        #Si no se busca una palabra
+        if request.form['busc']=="":
+            page = request.args.get('page', type=int, default=1)
+            enfermedad = separar(5,page,len(listaEnfermedades),listaEnfermedades)
+            pagination = Pagination(page=page, total=len(listaEnfermedades),per_page=5, search=search)
+
+        #Si se busca una palabra
+        else:
+            palBusc = request.form['busc']
+            li=[buscar(listaEnfermedades,palBusc)]
+
+            page = request.args.get('page', type=int, default=1)
+            enfermedad = separar(5,page,len(li),li)
+            pagination = Pagination(page=page, total=len(li),per_page=5, search=search)
+    #Inicia con todos los elementos
+    else:
+        page = request.args.get('page', type=int, default=1)
+        enfermedad = separar(5,page,len(listaEnfermedades),listaEnfermedades)
+        pagination = Pagination(page=page, total=len(listaEnfermedades),per_page=5, search=search)
+
     return render_template('enfermedad.html',
                            pagination=pagination, listaEnfermedades=enfermedad,
+                           li=li,
                            )
 
-@app.route('/medicamentos')
+@app.route('/medicamentos', methods=['GET', 'POST'])
 def medicamentos():
     search = False
     q = request.args.get('q')
     if q:
         search = True
+    li=[]
+    if request.method == 'POST':
+        #Si no se busca una palabra
+        if request.form['busc']=="":
+            page = request.args.get('page', type=int, default=1)
+            medi = separar(5,page,len(listaMedicamentos),listaMedicamentos)
+            pagination = Pagination(page=page, total=len(listaMedicamentos),per_page=5, search=search)
 
-    page = request.args.get('page', type=int, default=1)
-    medi = separar(5,page,len(listaMedicamentos),listaMedicamentos)
-    pagination = Pagination(page=page, total=len(listaMedicamentos),per_page=5, search=search)
+        #Si se busca una palabra
+        else:
+            palBusc = request.form['busc']
+            li=[buscar(listaMedicamentos,palBusc)]
+
+            page = request.args.get('page', type=int, default=1)
+            medi = separar(5,page,len(li),li)
+            pagination = Pagination(page=page, total=len(li),per_page=5, search=search)
+    #Inicia con todos los elementos
+    else:
+        page = request.args.get('page', type=int, default=1)
+        medi = separar(5,page,len(listaMedicamentos),listaMedicamentos)
+        pagination = Pagination(page=page, total=len(listaMedicamentos),per_page=5, search=search)
+
     return render_template('medicamentos.html',
                            pagination=pagination, listaMedicamentos=medi,
+                           li=li,
                            )
 
 @app.route('/usuario')
