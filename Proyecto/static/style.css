@@ -1,9 +1,9 @@
 .login{
 
-    background-image: url("../static/images/fondo3.jpg");
+    background-image: url("../static/images/bg1.jpg");
 }
 body{
-	background-image: url("../static/images/fondo2.jpg");	
+	background-image: url("../static/images/bg2.jpg");
 }
 
 .cosa{
@@ -49,26 +49,24 @@ input {
 }
 .tabla{
 	border:4px;
-	background-color:white;
-	color:blue;
+	background-color: rgba(91, 158, 217, 0.3);
+	color:#2E2E2E;
+	text-align: center;
 	margin: 0 auto;
 	width:50%;
 }
 ul.pagination {
     margin: 40px;
     text-align: center;
-
+    
 }
 ul.pagination li{
 	display: inline;
-	color:white;
-
-
+	color:black;
 }
 ul.pagination li a{
 	display: inline;
 	padding: 8px 16px;
-
 
 }
 
@@ -78,4 +76,9 @@ ul.pagination li a{
 	padding-right: 20px;
 	
 
+}
+
+a{
+    text-decoration: none;
+	color: inherit;
 }

@@ -289,6 +289,6 @@ def dosis():
 
 #Es el encargado de correr el programa
 if __name__ == "__main__":
-    app.run(debug=True,port=5050)
+    app.run(debug=True,port=8080)
 
 #prueba

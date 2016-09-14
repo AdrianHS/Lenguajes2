@@ -21,7 +21,7 @@
             </form>
             {% for a in listaAnimales %}
             <tr>
-                <td><a href="{{url_for('animaliio',texto=a.nombre)}}">{{a.nombre}}</a></td>
+                <td><a href="{{url_for('animaliio',texto=a.nombre)}}" >{{a.nombre}}</a></td>
                 <td>{{a.descripcion}}</td>
                 <td>{{a.foto}}</td>
             </tr>
