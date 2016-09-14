@@ -14,14 +14,14 @@
         </thead>
         <tbody>
             <form action="/animal" method= "post">
-                <div class="buscar">
+                <div class="bus">
                     <input type="text" name="busc" placeholder="Buscar" value="{{ request.form.busc }}">
                     <input type="submit" name="boton" value="Buscar" class="btn">
                 </div>
             </form>
             {% for a in listaAnimales %}
             <tr>
-                <td>{{a.nombre}}</td>
+                <td><a href="{{url_for('animaliio',texto=a.nombre)}}">{{a.nombre}}</a></td>
                 <td>{{a.descripcion}}</td>
                 <td>{{a.foto}}</td>
             </tr>

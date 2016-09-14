@@ -1,16 +1,20 @@
-body{
+.login{
 
-    background-image: url("../static/images/fondo.jpg");
+    background-image: url("../static/images/fondo3.jpg");
+}
+body{
+	background-image: url("../static/images/fondo2.jpg");	
 }
 
 .cosa{
     width: 450px;
     height: 400px;
     text-align: center;
-    background-color: #b3d7ff;
+    background-color: rgba(10, 131, 255, 0.4);
     border-radius: 10px;
     margin: 0 auto;
     margin-top: 100px; 
+
 }
 
 .cosa img{
@@ -32,7 +36,7 @@ input {
 	background-color: #fff
 }
 .btn{
-	padding: 15px 0px;
+	padding: 13px 0px;
 	height: 40px;
 	border-radius: 4px;
 	color: white;
@@ -51,21 +55,27 @@ input {
 	width:50%;
 }
 ul.pagination {
-    display:inline-block;
-    margin: 0 auto;
-    position: center;
+    margin: 40px;
+    text-align: center;
+
 }
 ul.pagination li{
 	display: inline;
 	color:white;
+
 
 }
 ul.pagination li a{
 	display: inline;
 	padding: 8px 16px;
 
+
 }
 
-buscar {
+.bus {
+	text-align: right;
+	padding-bottom: 30px;
+	padding-right: 20px;
+	
 
 }
