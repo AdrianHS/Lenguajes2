@@ -159,7 +159,6 @@ def animal():
     return render_template('animal.html',
                            animales=animales,
                            pagination=pagination,listaAnimales=animales,
-                           li=li,
                            )
 @app.route('/enfermedad', methods=['GET', 'POST'])
 def enfermedad():
@@ -192,7 +191,6 @@ def enfermedad():
 
     return render_template('enfermedad.html',
                            pagination=pagination, listaEnfermedades=enfermedad,
-                           li=li,
                            )
 
 @app.route('/medicamentos', methods=['GET', 'POST'])
@@ -225,7 +223,6 @@ def medicamentos():
 
     return render_template('medicamentos.html',
                            pagination=pagination, listaMedicamentos=medi,
-                           li=li,
                            )
 
 @app.route('/usuario')
