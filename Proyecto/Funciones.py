@@ -7,5 +7,11 @@ def buscar(lista,nombre):
             return element
     return []
 
+#Buscar temporal para prescripcion, hasta que haya polimorfismo...
+def buscarP(lista,nombre):
+    for element in lista:
+        if element.ID==nombre:
+            return element
+    return []
 
 
