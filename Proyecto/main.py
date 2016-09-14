@@ -264,10 +264,28 @@ def prescripcion():
     q = request.args.get('q')
     if q:
         search = True
+    li = []
+    if request.method == 'POST':
+        # Si no se busca una palabra
+        if request.form['busc'] == "":
+            page = request.args.get('page', type=int, default=1)
+            pres = separar(5, page, len(listaPrescripcion), listaPrescripcion)
+            pagination = Pagination(page=page, total=len(listaPrescripcion), per_page=5, search=search)
 
-    page = request.args.get('page', type=int, default=1)
-    pres = separar(5,page,len(listaPrescripcion),listaPrescripcion)
-    pagination = Pagination(page=page, total=len(listaPrescripcion),per_page=5, search=search)
+        # Si se busca una palabra
+        else:
+            palBusc = request.form['busc']
+            li = [buscar(listaPrescripcion, palBusc)]
+
+            page = request.args.get('page', type=int, default=1)
+            pres = separar(5, page, len(li), li)
+            pagination = Pagination(page=page, total=len(li), per_page=5, search=search)
+    # Inicia con todos los elementos
+    else:
+        page = request.args.get('page', type=int, default=1)
+        pres = separar(5, page, len(listaPrescripcion), listaPrescripcion)
+        pagination = Pagination(page=page, total=len(listaPrescripcion), per_page=5, search=search)
+
     return render_template('prescripcion.html',
                            pagination=pagination, listaPrescripcion=pres,
                            )

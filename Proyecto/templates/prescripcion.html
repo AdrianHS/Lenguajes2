@@ -16,6 +16,12 @@
             </tr>
         </thead>
         <tbody>
+            <form action="/animal" method= "post">
+                <div class="bus">
+                    <input type="text" name="busc" placeholder="Buscar" value="{{ request.form.busc }}">
+                    <input type="submit" name="boton" value="Buscar" class="btn">
+                </div>
+            </form>
 
             {% for a in listaPrescripcion %}
             <tr>
