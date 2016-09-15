@@ -6,44 +6,45 @@
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename= 'style.css') }}">
 </head>
 <body>
-    <ul>
-        <button type = "button"> Insertar Animal </button>
-        <button type = "button"> Modificar Animal </button>
-        <button type = "button"> Borrar Animal </button>
-    </ul>
-    <ul>
-        <button type = "button"> Insertar Medicamentos </button>
-        <button type = "button"> Modificar Medicamentos </button>
-        <button type = "button"> Borrar Medicamentos </button>
-    </ul>
-    <ul>
-        <button type = "button"> Insertar Dosis </button>
-        <button type = "button"> Modificar Dosis </button>
-        <button type = "button"> Borrar Dosis </button>
-    </ul>
-    <ul>
-        <button type = "button"> Insertar Prescripcion </button>
-        <button type = "button"> Modificar Prescripcion </button>
-        <button type = "button"> Borrar Prescripcion </button>
-    </ul>
-    <ul>
-        <button type = "button"> Insertar Usuario </button>
-        <button type = "button"> Modificar Usuario </button>
-        <button type = "button"> Borrar Usuario </button>
-    </ul>
-    <ul>
-        <button type = "button"> Insertar Enfermedades </button>
-        <button type = "button"> Modificar Enfermedades </button>
-        <button type = "button"> Borrar Enfermedades </button>
-    </ul>
-    <ul>
-        <button type = "button"> Ver Usuario </button>
-        <button type = "button"> Ver Animales </button>
-        <button type = "button"> Ver Medicamentos </button>
-        <button type = "button"> Ver Enfermedades </button>
-        <button type = "button"> Ver Dosis </button>
-        <button type = "button"> Ver Prescripcion </button>
-    </ul>
-
+    <div class="botonesPrincipal">
+        <ul>
+            <button type = "button"><a href="insertarAnimal"> Insertar Animal </a></button>
+            <button type = "button"> Modificar Animal </button>
+            <button type = "button"> Borrar Animal </button>
+        </ul>
+        <ul>
+            <button type = "button"><a href="insertarMedicamentos"> Insertar Medicamentos </a></button>
+            <button type = "button"> Modificar Medicamentos </button>
+            <button type = "button"> Borrar Medicamentos </button>
+        </ul>
+        <ul>
+            <button type = "button"><a href="insertarEnfermedades"> Insertar Enfermedades </button>
+            <button type = "button"> Modificar Enfermedades </button>
+            <button type = "button"> Borrar Enfermedades </button>
+        </ul>
+        <ul>
+            <button type = "button"><a href="insertarDosis"> Insertar Dosis </a></button>
+            <button type = "button"> Modificar Dosis </button>
+            <button type = "button"> Borrar Dosis </button>
+        </ul>
+        <ul>
+            <button type = "button"><a href="insertarPrescripcion"> Insertar Prescripcion </a></button>
+            <button type = "button"> Modificar Prescripcion </button>
+            <button type = "button"> Borrar Prescripcion </button>
+        </ul>
+        <ul>
+            <button type = "button"><a href="insertarUsuario"> Insertar Usuario </a></button>
+            <button type = "button"> Modificar Usuario </button>
+            <button type = "button"> Borrar Usuario </button>
+        </ul>
+        <ul>
+            <button type = "button"><a href="usuario"> Ver Usuario </a></button>
+            <button type = "button"><a href="animal"> Ver Animales </a></button>
+            <button type = "button"><a href="medicamentos"> Ver Medicamentos </a></button>
+            <button type = "button"><a href="enfermedad"> Ver Enfermedades </a></button>
+            <button type = "button"><a href="dosis"> Ver Dosis </a></button>
+            <button type = "button"><a href="prescripcion"> Ver Prescripcion </a></button>
+        </ul>
+    </div>
 </body>
 </html>

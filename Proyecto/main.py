@@ -16,7 +16,6 @@ listaUsuarios = []
 listaPrescripcion = []
 listaDosis = []
 
-
 def consulta():
     conn =mysql.connector.connect(user='root',password='1234',host='localhost',database='veterinaria')
     mycursor = conn.cursor()
@@ -93,12 +92,11 @@ app = Flask(__name__)
 @app.route('/', methods=['GET', 'POST'])
 @app.route('/login', methods=['GET', 'POST'])
 def login():
-    error = None
     if request.method == 'POST':
-        if request.form['username'] != 'admin' or request.form['password'] != 'admin':
+        if request.form['username'] == 'admin' or request.form['password'] == 'admin':
             return redirect(url_for('principal'))
         else:
-            return redirect(url_for('principal'))
+            return redirect(url_for('menuUsuarios'))
     return render_template('login.html')
 
 #Metodo para hacer paginacion
@@ -126,6 +124,84 @@ def separar(num,pagina,count,lista1):
 @app.route('/principal')
 def principal():
     return render_template('principal.html')
+
+@app.route('/menuUsuarios')
+def menuUsuarios():
+    return render_template('menuUsuarios.html')
+
+@app.route('/insertarAnimal', methods=['GET', 'POST'])
+def insertarAnimal():
+
+    if request.method == 'POST':
+       #if request.form['nombre'] == buscar(listaAnimales,request.form['nombre']).nombre:
+        a=request.form['nombre']
+        b=request.form['descripcion']
+        c=request.form['foto']
+        x=Animal()
+        x.crear(a,b,c)
+        listaAnimales.append(x)
+    return render_template('insertarAnimal.html')
+
+@app.route('/insertarEnfermedades', methods=['GET', 'POST'])
+def insertarEnfermedades():
+    if request.method == 'POST':
+        a=request.form['nombre']
+        b=request.form['descripcion']
+        c=request.form['foto']
+        x=Enfermedad()
+        x.crear(a,b,c)
+        listaEnfermedades.append(x)
+    return render_template('insertarEnfermedades.html')
+
+@app.route('/insertarMedicamentos', methods=['GET', 'POST'])
+def insertarMedicamentos():
+    if request.method == 'POST':
+        a=request.form['nombre']
+        b=request.form['descripcion']
+        c=request.form['foto']
+        x=Medicamentos()
+        x.crear(a,b,c)
+        listaMedicamentos.append(x)
+    return render_template('insertarMedicamentos.html')
+
+@app.route('/insertarUsuario', methods=['GET', 'POST'])
+def insertarUsuario():
+    if request.method == 'POST':
+        a = request.form['Username']
+        b = request.form['Password']
+        c = request.form['Nombre']
+        d = request.form['Admin']
+        e = request.form['Foto']
+        x = Usuario()
+        x.crear(a, b, c, d, e)
+        listaUsuarios.append(x)
+    return render_template('insertarUsuario.html')
+
+@app.route('/insertarDosis', methods=['GET', 'POST'])
+def insertarDosis():
+    if request.method == 'POST':
+        a = request.form['ID']
+        b = request.form['Animal']
+        c = request.form['Medicamento']
+        d = request.form['RangoPeso']
+        e = request.form['Dosis']
+        x = Dosis()
+        x.crear(a, b, c, d, e)
+        listaDosis.append(x)
+    return render_template('insertarDosis.html')
+
+@app.route('/insertarPrescripcion', methods=['GET', 'POST'])
+def insertarPrescripcion():
+    if request.method == 'POST':
+        a = request.form['Usuario']
+        b = request.form['Animal']
+        c = request.form['Enfermedad']
+        d = request.form['Peso']
+        e = request.form['Dosis']
+        x = Prescripcion()
+        x.crear(a, b, c, d, e)
+        listaPrescripcion.append(x)
+    return render_template('insertarPrescripcion.html')
 
 @app.route('/animal/<texto>', methods=['GET', 'POST'])
 def animaliio(texto):
@@ -185,7 +261,6 @@ def enfermedad():
     q = request.args.get('q')
     if q:
         search = True
-
     li=[]
     if request.method == 'POST':
         #Si no se busca una palabra
@@ -308,6 +383,4 @@ def dosis():
 
 #Es el encargado de correr el programa
 if __name__ == "__main__":
-    app.run(debug=True,port=8080)
-
-#prueba
+    app.run(debug=True)
