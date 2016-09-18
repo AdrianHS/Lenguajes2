@@ -129,17 +129,24 @@ def principal():
 def menuUsuarios():
     return render_template('menuUsuarios.html')
 
+#================================================================  INCERTARES ==========================================
 @app.route('/insertarAnimal', methods=['GET', 'POST'])
 def insertarAnimal():
-
+    l=[]
     if request.method == 'POST':
-       #if request.form['nombre'] == buscar(listaAnimales,request.form['nombre']).nombre:
-        a=request.form['nombre']
-        b=request.form['descripcion']
-        c=request.form['foto']
-        x=Animal()
-        x.crear(a,b,c)
-        listaAnimales.append(x)
+        #Para que todos los campos tengan que estar llenos
+        if request.form['nombre']!="" and request.form['descripcion']!="" :
+            print("Campos no estan vacios")
+            l = buscar(listaAnimales,request.form['nombre'])
+            #Para verificar que no exista ese nombre
+            if l == []:
+                print("Incersion valida")
+                a=request.form['nombre']
+                b=request.form['descripcion']
+                c=request.form['foto']
+                x=Animal()
+                x.crear(a,b,c)
+                listaAnimales.append(x)
     return render_template('insertarAnimal.html')
 
 @app.route('/insertarEnfermedades', methods=['GET', 'POST'])
