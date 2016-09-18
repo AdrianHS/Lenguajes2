@@ -203,6 +203,7 @@ def insertarPrescripcion():
         listaPrescripcion.append(x)
     return render_template('insertarPrescripcion.html')
 
+#=======================================================================================================================
 @app.route('/animal/<texto>', methods=['GET', 'POST'])
 def animaliio(texto):
     search = False
@@ -211,7 +212,7 @@ def animaliio(texto):
         search = True
     li = []
     palBusc = texto
-    li = [buscar(listaAnimales, palBusc)]
+    li = buscar(listaAnimales, palBusc)
 
     page = request.args.get('page', type=int, default=1)
     animales = separar(5, page, len(li), li)
@@ -240,8 +241,9 @@ def animal():
         #Si se busca una palabra
         else:
             palBusc = request.form['busc']
-            li=[buscar(listaAnimales,palBusc)]
-
+            li=buscar(listaAnimales,palBusc)
+            if(li==[]):
+                li=[[]]
             page = request.args.get('page', type=int, default=1)
             animales = separar(5,page,len(li),li)
             pagination = Pagination(page=page, total=len(li),per_page=5, search=search)
@@ -272,7 +274,9 @@ def enfermedad():
         #Si se busca una palabra
         else:
             palBusc = request.form['busc']
-            li=[buscar(listaEnfermedades,palBusc)]
+            li=buscar(listaEnfermedades,palBusc)
+            if(li==[]):
+                li=[[]]
 
             page = request.args.get('page', type=int, default=1)
             enfermedad = separar(5,page,len(li),li)
@@ -304,7 +308,9 @@ def medicamentos():
         #Si se busca una palabra
         else:
             palBusc = request.form['busc']
-            li=[buscar(listaMedicamentos,palBusc)]
+            li=buscar(listaMedicamentos,palBusc)
+            if(li==[]):
+                li=[[]]
 
             page = request.args.get('page', type=int, default=1)
             medi = separar(5,page,len(li),li)
@@ -350,7 +356,9 @@ def prescripcion():
         # Si se busca una palabra
         else:
             palBusc = request.form['busc']
-            li = [buscarP(listaPrescripcion, palBusc)]
+            li = buscarP(listaPrescripcion, palBusc)
+            if(li==[]):
+                li=[[]]
 
             page = request.args.get('page', type=int, default=1)
             pres = separar(5, page, len(li), li)
