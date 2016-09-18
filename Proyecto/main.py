@@ -136,11 +136,9 @@ def insertarAnimal():
     if request.method == 'POST':
         #Para que todos los campos tengan que estar llenos
         if request.form['nombre']!="" and request.form['descripcion']!="" :
-            print("Campos no estan vacios")
             l = buscar(listaAnimales,request.form['nombre'])
             #Para verificar que no exista ese nombre
             if l == []:
-                print("Incersion valida")
                 a=request.form['nombre']
                 b=request.form['descripcion']
                 c=request.form['foto']
@@ -151,24 +149,36 @@ def insertarAnimal():
 
 @app.route('/insertarEnfermedades', methods=['GET', 'POST'])
 def insertarEnfermedades():
+    l=[]
     if request.method == 'POST':
-        a=request.form['nombre']
-        b=request.form['descripcion']
-        c=request.form['foto']
-        x=Enfermedad()
-        x.crear(a,b,c)
-        listaEnfermedades.append(x)
+        #Para que todos los campos tengan que estar llenos
+        if request.form['nombre']!="" and request.form['descripcion']!="" :
+            l = buscar(listaEnfermedades,request.form['nombre'])
+            #Para verificar que no exista ese nombre
+            if l == []:
+                a=request.form['nombre']
+                b=request.form['descripcion']
+                c=request.form['foto']
+                x=Enfermedad()
+                x.crear(a,b,c)
+                listaEnfermedades.append(x)
     return render_template('insertarEnfermedades.html')
 
 @app.route('/insertarMedicamentos', methods=['GET', 'POST'])
 def insertarMedicamentos():
+    l=[]
     if request.method == 'POST':
-        a=request.form['nombre']
-        b=request.form['descripcion']
-        c=request.form['foto']
-        x=Medicamentos()
-        x.crear(a,b,c)
-        listaMedicamentos.append(x)
+        #Para que todos los campos tengan que estar llenos
+        if request.form['nombre']!="" and request.form['descripcion']!="" :
+            l = buscar(listaMedicamentos, request.form['nombre'])
+            #Para verificar que no exista ese nombre
+            if l == []:
+                a=request.form['nombre']
+                b=request.form['descripcion']
+                c=request.form['foto']
+                x=Medicamentos()
+                x.crear(a,b,c)
+                listaMedicamentos.append(x)
     return render_template('insertarMedicamentos.html')
 
 @app.route('/insertarUsuario', methods=['GET', 'POST'])
@@ -187,6 +197,7 @@ def insertarUsuario():
 @app.route('/insertarDosis', methods=['GET', 'POST'])
 def insertarDosis():
     if request.method == 'POST':
+        #FALTA LA ENFERMEDAD!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         a = request.form['ID']
         b = request.form['Animal']
         c = request.form['Medicamento']
@@ -200,6 +211,7 @@ def insertarDosis():
 @app.route('/insertarPrescripcion', methods=['GET', 'POST'])
 def insertarPrescripcion():
     if request.method == 'POST':
+        #FALTA EL ID!!!!!!!!!!!!!!!!!!!!!!!!!!11
         a = request.form['Usuario']
         b = request.form['Animal']
         c = request.form['Enfermedad']

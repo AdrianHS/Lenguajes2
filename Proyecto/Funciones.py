@@ -4,6 +4,6 @@
 def buscar(lista,nombre):
     return list(filter(lambda x: x.nombre == nombre, lista))
 
-#buscar para prescriciones
+#buscar para prescriciones y dosis
 def buscarP(lista, id):
     return list(filter(lambda x: x.ID == id, lista))
