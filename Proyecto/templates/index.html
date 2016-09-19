@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+{% if logueado %}
 <html lang="en">
 <head>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename= '.css') }}">
@@ -24,3 +25,4 @@
     {{hola}}
 </body>
 </html>
+{%endif%}

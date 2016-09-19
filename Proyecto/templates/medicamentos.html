@@ -1,4 +1,5 @@
 <!doctype html>
+{% if logueado %}
 <title>Medicamentos</title>
 <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename= 'style.css') }}">
 
@@ -35,5 +36,5 @@
     </div>
 
 </body>
-
+{%endif%}
 
