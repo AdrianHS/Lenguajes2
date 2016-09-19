@@ -11,11 +11,11 @@ from Funciones import *
 
 listaAnimales=[]
 listaEnfermedades=[]
-listaMedicamentos=[]
 listaUsuarios = []
+listaMedicamentos=[]
 listaPrescripcion = []
 listaDosis = []
-logueado = None
+logueado = False
 
 def consulta():
     conn = mysql.connector.connect(user='root',password='12345',host='localhost',database='veterinaria')
@@ -96,10 +96,11 @@ def login():
     if request.method == 'POST':
         if request.form['username'] == 'admin' or request.form['password'] == 'admin':
             global logueado
-            logueado = "Logueado"
+            logueado = True
             return redirect(url_for('principal'))
 
         else:
+            logueado= False
             return redirect(url_for('menuUsuarios'))
     return render_template('login.html')
 
