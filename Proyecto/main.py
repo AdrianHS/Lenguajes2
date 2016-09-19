@@ -197,28 +197,28 @@ def insertarUsuario():
 @app.route('/insertarDosis', methods=['GET', 'POST'])
 def insertarDosis():
     if request.method == 'POST':
-        #FALTA LA ENFERMEDAD!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         a = request.form['ID']
         b = request.form['Animal']
         c = request.form['Medicamento']
+        w = request.form['Enfermedad']
         d = request.form['RangoPeso']
         e = request.form['Dosis']
         x = Dosis()
-        x.crear(a, b, c, d, e)
+        x.crear(a, b, c, w, d, e)
         listaDosis.append(x)
     return render_template('insertarDosis.html')
 
 @app.route('/insertarPrescripcion', methods=['GET', 'POST'])
 def insertarPrescripcion():
     if request.method == 'POST':
-        #FALTA EL ID!!!!!!!!!!!!!!!!!!!!!!!!!!11
+        w = request.form['ID']
         a = request.form['Usuario']
         b = request.form['Animal']
         c = request.form['Enfermedad']
         d = request.form['Peso']
         e = request.form['Dosis']
         x = Prescripcion()
-        x.crear(a, b, c, d, e)
+        x.crear(w, a, b, c, d, e)
         listaPrescripcion.append(x)
     return render_template('insertarPrescripcion.html')
 
