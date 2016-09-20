@@ -21,7 +21,7 @@ logueado = False
 
 #========================================================= CARGAR DATOS EN LISTAS ======================================
 def consulta():
-    conn = mysql.connector.connect(user='root',password='1234',host='localhost',database='veterinaria')
+    conn = mysql.connector.connect(user='root',password='12345',host='localhost',database='veterinaria')
     mycursor = conn.cursor()
     mycursor.execute("SELECT * FROM animal")
 
@@ -33,7 +33,7 @@ def consulta():
 consulta()
 
 def consultaEnfermedad():
-    conn =mysql.connector.connect(user='root',password='1234',host='localhost',database='veterinaria')
+    conn =mysql.connector.connect(user='root',password='12345',host='localhost',database='veterinaria')
     mycursor = conn.cursor()
     mycursor.execute("SELECT * FROM enfermedad")
 
@@ -45,7 +45,7 @@ def consultaEnfermedad():
 consultaEnfermedad()
 
 def consultaMedicamentos():
-    conn =mysql.connector.connect(user='root',password='1234',host='localhost',database='veterinaria')
+    conn =mysql.connector.connect(user='root',password='12345',host='localhost',database='veterinaria')
     mycursor = conn.cursor()
     mycursor.execute("SELECT * FROM medicamentos")
 
@@ -57,7 +57,7 @@ def consultaMedicamentos():
 consultaMedicamentos()
 
 def consultaUsuario():
-    conn =mysql.connector.connect(user='root',password='1234',host='localhost',database='veterinaria')
+    conn =mysql.connector.connect(user='root',password='12345',host='localhost',database='veterinaria')
     mycursor = conn.cursor()
     mycursor.execute("SELECT * FROM usuario")
 
@@ -69,7 +69,7 @@ def consultaUsuario():
 consultaUsuario()
 
 def consultaPrescripcion():
-    conn =mysql.connector.connect(user='root',password='1234',host='localhost',database='veterinaria')
+    conn =mysql.connector.connect(user='root',password='12345',host='localhost',database='veterinaria')
     mycursor = conn.cursor()
     mycursor.execute("SELECT * FROM prescripcion")
 
@@ -81,7 +81,7 @@ def consultaPrescripcion():
 consultaPrescripcion()
 
 def consultaDosis():
-    conn =mysql.connector.connect(user='root',password='1234',host='localhost',database='veterinaria')
+    conn =mysql.connector.connect(user='root',password='12345',host='localhost',database='veterinaria')
     mycursor = conn.cursor()
     mycursor.execute("SELECT * FROM dosis")
 
@@ -345,6 +345,61 @@ def borrarUsuario():
         print("xf")
 
     return render_template('borrarUsuario.html', admin=admin,logueado=logueado,)
+#======================================================== MODIFICAR ====================================================
+@app.route('/modificarAnimal', methods=['GET', 'POST'])
+def modificarAnimal():
+    global admin
+    global logueado
+    if request.method == 'POST':
+        print("xf")
+
+    return render_template('modificarAnimal.html', admin=admin,logueado=logueado,)
+
+@app.route('/modificarEnfermedades', methods=['GET', 'POST'])
+def modificarEnfermedades():
+    global admin
+    global logueado
+    if request.method == 'POST':
+        print("xf")
+
+    return render_template('modificarEnfermedades.html', admin=admin,logueado=logueado,)
+
+@app.route('/modificarMedicamentos', methods=['GET', 'POST'])
+def modificarMedicamentos():
+    global admin
+    global logueado
+    if request.method == 'POST':
+        print("xf")
+
+    return render_template('modificarMedicamentos.html', admin=admin,logueado=logueado,)
+
+@app.route('/modificarDosis', methods=['GET', 'POST'])
+def modificarDosis():
+    global admin
+    global logueado
+    if request.method == 'POST':
+        print("xf")
+
+    return render_template('modificarDosis.html', admin=admin,logueado=logueado,)
+
+@app.route('/modificarPrescripcion', methods=['GET', 'POST'])
+def modificarPrescripcion():
+    global admin
+    global logueado
+    if request.method == 'POST':
+        print("xf")
+
+    return render_template('modificarPrescripcion.html', admin=admin,logueado=logueado,)
+
+@app.route('/modificarUsuario', methods=['GET', 'POST'])
+def modificarUsuario():
+    global admin
+    global logueado
+    if request.method == 'POST':
+        print("xf")
+
+    return render_template('modificarUsuario.html', admin=admin,logueado=logueado,)
+
 
 #======================================================== VISTAS =======================================================
 @app.route('/animal/<texto>', methods=['GET', 'POST'])
