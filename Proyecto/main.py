@@ -98,17 +98,17 @@ def login():
     logueado=False
     if request.method == 'POST':
         li = buscarU(listaUsuarios,request.form['username'])
-        print(li[0].admin)
-        if li[0].admin==1:
-            global admin
-            logueado=True
-            admin = True
-            return redirect(url_for('principal'))
+        if li!=[]:
+            if li[0].username == request.form['username'] and li[0].admin == 1 and li[0].password == request.form['password']:
+                global admin
+                logueado=True
+                admin = True
+                return redirect(url_for('principal'))
 
-        else:
-            logueado= True
-            admin= False
-            return redirect(url_for('menuUsuarios'))
+            elif li[0].username == request.form['username']and li[0].admin == 0 and li[0].password == request.form['password']:
+                logueado= True
+                admin= False
+                return redirect(url_for('menuUsuarios'))
     return render_template('login.html')
 
 #Metodo para hacer paginacion
