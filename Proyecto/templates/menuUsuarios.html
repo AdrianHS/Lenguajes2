@@ -1,21 +1,30 @@
 <!DOCTYPE html>
-
+{% if logueado %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Menú Usuarios</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename= 'style.css') }}">
 </head>
 <body>
-    <div class="botonesPrincipal">
+
+    <div class="botonesUsuario">
+        <h1>Menú Usuarios</h1>
         <ul>
             <button type = "button"><a href="usuario"> Ver Usuario </a></button>
+            <hr>
             <button type = "button"><a href="animal"> Ver Animales </a></button>
+            <hr>
             <button type = "button"><a href="medicamentos"> Ver Medicamentos </a></button>
+            <hr>
             <button type = "button"><a href="enfermedad"> Ver Enfermedades </a></button>
+            <hr>
             <button type = "button"><a href="dosis"> Ver Dosis </a></button>
+            <hr>
             <button type = "button"><a href="prescripcion"> Ver Prescripcion </a></button>
         </ul>
     </div>
 
 </body>
 </html>
+{%endif%}
