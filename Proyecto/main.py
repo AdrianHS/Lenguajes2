@@ -18,8 +18,10 @@ listaDosis = []
 admin = False
 logueado = False
 
+
+#========================================================= CARGAR DATOS EN LISTAS ======================================
 def consulta():
-    conn = mysql.connector.connect(user='root',password='12345',host='localhost',database='veterinaria')
+    conn = mysql.connector.connect(user='root',password='1234',host='localhost',database='veterinaria')
     mycursor = conn.cursor()
     mycursor.execute("SELECT * FROM animal")
 
@@ -31,7 +33,7 @@ def consulta():
 consulta()
 
 def consultaEnfermedad():
-    conn =mysql.connector.connect(user='root',password='12345',host='localhost',database='veterinaria')
+    conn =mysql.connector.connect(user='root',password='1234',host='localhost',database='veterinaria')
     mycursor = conn.cursor()
     mycursor.execute("SELECT * FROM enfermedad")
 
@@ -43,7 +45,7 @@ def consultaEnfermedad():
 consultaEnfermedad()
 
 def consultaMedicamentos():
-    conn =mysql.connector.connect(user='root',password='12345',host='localhost',database='veterinaria')
+    conn =mysql.connector.connect(user='root',password='1234',host='localhost',database='veterinaria')
     mycursor = conn.cursor()
     mycursor.execute("SELECT * FROM medicamentos")
 
@@ -55,7 +57,7 @@ def consultaMedicamentos():
 consultaMedicamentos()
 
 def consultaUsuario():
-    conn =mysql.connector.connect(user='root',password='12345',host='localhost',database='veterinaria')
+    conn =mysql.connector.connect(user='root',password='1234',host='localhost',database='veterinaria')
     mycursor = conn.cursor()
     mycursor.execute("SELECT * FROM usuario")
 
@@ -67,7 +69,7 @@ def consultaUsuario():
 consultaUsuario()
 
 def consultaPrescripcion():
-    conn =mysql.connector.connect(user='root',password='12345',host='localhost',database='veterinaria')
+    conn =mysql.connector.connect(user='root',password='1234',host='localhost',database='veterinaria')
     mycursor = conn.cursor()
     mycursor.execute("SELECT * FROM prescripcion")
 
@@ -79,7 +81,7 @@ def consultaPrescripcion():
 consultaPrescripcion()
 
 def consultaDosis():
-    conn =mysql.connector.connect(user='root',password='12345',host='localhost',database='veterinaria')
+    conn =mysql.connector.connect(user='root',password='1234',host='localhost',database='veterinaria')
     mycursor = conn.cursor()
     mycursor.execute("SELECT * FROM dosis")
 
@@ -90,7 +92,7 @@ def consultaDosis():
 
 consultaDosis()
 app = Flask(__name__)
-
+#================================================== LOGIN ==============================================================
 @app.route('/', methods=['GET', 'POST'])
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -99,13 +101,14 @@ def login():
     if request.method == 'POST':
         li = buscarU(listaUsuarios,request.form['username'])
         if li!=[]:
-            if li[0].username == request.form['username'] and li[0].admin == 1 and li[0].password == request.form['password']:
+            #print(li[0].username+"="+ request.form['username'] +"   "+ str(li[0].admin) +"    "+ li[0].password +"="+ request.form['password'])
+            if li[0].username == request.form['username'] and str(li[0].admin) == "1" and li[0].password == request.form['password']:
                 global admin
                 logueado=True
                 admin = True
                 return redirect(url_for('principal'))
 
-            elif li[0].username == request.form['username']and li[0].admin == 0 and li[0].password == request.form['password']:
+            elif li[0].username == request.form['username']and str(li[0].admin) == "0" and li[0].password == request.form['password']:
                 logueado= True
                 admin= False
                 return redirect(url_for('menuUsuarios'))
@@ -133,6 +136,8 @@ def separar(num,pagina,count,lista1):
         list.append(lista1[count - a:])
         return list[pagina]
 
+#====================================================== MENUS ==========================================================
+
 @app.route('/principal')
 def principal():
     global admin
@@ -145,7 +150,7 @@ def menuUsuarios():
     global logueado
     return render_template('menuUsuarios.html',admin=admin,logueado=logueado,)
 
-#================================================================  INSERTARES ==========================================
+#====================================================  INSERTAR ========================================================
 @app.route('/insertarAnimal', methods=['GET', 'POST'])
 def insertarAnimal():
     l=[]
@@ -207,49 +212,86 @@ def insertarMedicamentos():
 def insertarUsuario():
     global admin
     global logueado
+    l=[]
     if request.method == 'POST':
-        a = request.form['Username']
-        b = request.form['Password']
-        c = request.form['Nombre']
-        d = request.form['Admin']
-        e = request.form['Foto']
-        x = Usuario()
-        x.crear(a, b, c, d, e)
-        listaUsuarios.append(x)
+        #Que todos esten llenos
+        if  request.form['Username']!="" and request.form['Password'] != "" and request.form['Nombre'] !=""and request.form['Admin'] !="":
+            l=buscarU(listaUsuarios,request.form['Username'])
+            if l==[]:
+                a = request.form['Username']
+                b = request.form['Password']
+                c = request.form['Nombre']
+                d = request.form['Admin']
+                e = request.form['Foto']
+                x = Usuario()
+                x.crear(a, b, c, d, e)
+                listaUsuarios.append(x)
     return render_template('insertarUsuario.html', admin=admin,logueado=logueado,)
 
 @app.route('/insertarDosis', methods=['GET', 'POST'])
 def insertarDosis():
     global admin
     global logueado
+    l=[]
     if request.method == 'POST':
-        a = request.form['ID']
-        b = request.form['Animal']
-        c = request.form['Medicamento']
-        w = request.form['Enfermedad']
-        d = request.form['RangoPeso']
-        e = request.form['Dosis']
-        x = Dosis()
-        x.crear(a, b, c, w, d, e)
-        listaDosis.append(x)
+        #Que todos esten llenos
+        if request.form['ID']!="" and request.form['Animal'] != "" and request.form['Medicamento'] !=""and \
+                        request.form['Enfermedad'] !=""and request.form['RangoPeso'] !=""and request.form['Dosis'] !="":
+            l=buscarP(listaDosis,request.form['ID'])
+            if l==[]:
+                #Comprovar que exista el animal
+                l = buscar(listaAnimales,request.form['Animal'])
+                if l != []:
+                    #Comprovar que exista Medicamento
+                    l = buscar(listaMedicamentos, request.form['Medicamento'])
+                    if l != []:
+                        #Comprovar que exista Enfermedad
+                        l = buscar(listaEnfermedades, request.form['Enfermedad'])
+                        if l != []:
+                            a = request.form['ID']
+                            b = request.form['Animal']
+                            c = request.form['Medicamento']
+                            w = request.form['Enfermedad']
+                            d = request.form['RangoPeso']
+                            e = request.form['Dosis']
+                            x = Dosis()
+                            x.crear(a, b, c, w, d, e)
+                            listaDosis.append(x)
     return render_template('insertarDosis.html', admin=admin,logueado=logueado,)
 
 @app.route('/insertarPrescripcion', methods=['GET', 'POST'])
 def insertarPrescripcion():
     global admin
     global logueado
+
+    l=[]
     if request.method == 'POST':
-        w = request.form['ID']
-        a = request.form['Usuario']
-        b = request.form['Animal']
-        c = request.form['Enfermedad']
-        d = request.form['Peso']
-        e = request.form['Dosis']
-        x = Prescripcion()
-        x.crear(w, a, b, c, d, e)
-        listaPrescripcion.append(x)
+        #Que todos esten llenos
+        if request.form['ID']!="" and request.form['Usuario'] != "" and request.form['Animal'] !=""and \
+                        request.form['Enfermedad'] !=""and request.form['Peso'] !=""and request.form['Dosis'] !="":
+            l=buscarP(listaPrescripcion, request.form['ID'])
+            if l==[]:
+                #Falta validar que existan los otros
+                l=buscarU(listaUsuarios,request.form['Usuario'])
+                if l!=[]:
+                    l=buscar(listaAnimales,request.form['Animal'])
+                    if l!=[]:
+                        l=buscar(listaEnfermedades,request.form['Enfermedad'])
+                        if l!=[]:
+                            l=buscarP(listaDosis,request.form['Dosis'])
+                            if l!=[]:
+                                w = request.form['ID']
+                                a = request.form['Usuario']
+                                b = request.form['Animal']
+                                c = request.form['Enfermedad']
+                                d = request.form['Peso']
+                                e = request.form['Dosis']
+                                x = Prescripcion()
+                                x.crear(w, a, b, c, d, e)
+                                listaPrescripcion.append(x)
     return render_template('insertarPrescripcion.html', admin=admin,logueado=logueado,)
 
+#======================================================  BORRAR ========================================================
 @app.route('/borrarAnimal', methods=['GET', 'POST'])
 def borrarAnimal():
     global admin
@@ -303,7 +345,8 @@ def borrarUsuario():
         print("xf")
 
     return render_template('borrarUsuario.html', admin=admin,logueado=logueado,)
-#=======================================================================================================================
+
+#======================================================== VISTAS =======================================================
 @app.route('/animal/<texto>', methods=['GET', 'POST'])
 def animaliio(texto):
     search = False
