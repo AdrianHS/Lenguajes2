@@ -15,10 +15,11 @@ listaUsuarios = []
 listaMedicamentos=[]
 listaPrescripcion = []
 listaDosis = []
+admin = False
 logueado = False
 
 def consulta():
-    conn = mysql.connector.connect(user='root',password='12345',host='localhost',database='veterinaria')
+    conn = mysql.connector.connect(user='root',password='1234',host='localhost',database='veterinaria')
     mycursor = conn.cursor()
     mycursor.execute("SELECT * FROM animal")
 
@@ -30,7 +31,7 @@ def consulta():
 consulta()
 
 def consultaEnfermedad():
-    conn =mysql.connector.connect(user='root',password='12345',host='localhost',database='veterinaria')
+    conn =mysql.connector.connect(user='root',password='1234',host='localhost',database='veterinaria')
     mycursor = conn.cursor()
     mycursor.execute("SELECT * FROM enfermedad")
 
@@ -42,7 +43,7 @@ def consultaEnfermedad():
 consultaEnfermedad()
 
 def consultaMedicamentos():
-    conn =mysql.connector.connect(user='root',password='12345',host='localhost',database='veterinaria')
+    conn =mysql.connector.connect(user='root',password='1234',host='localhost',database='veterinaria')
     mycursor = conn.cursor()
     mycursor.execute("SELECT * FROM medicamentos")
 
@@ -54,7 +55,7 @@ def consultaMedicamentos():
 consultaMedicamentos()
 
 def consultaUsuario():
-    conn =mysql.connector.connect(user='root',password='12345',host='localhost',database='veterinaria')
+    conn =mysql.connector.connect(user='root',password='1234',host='localhost',database='veterinaria')
     mycursor = conn.cursor()
     mycursor.execute("SELECT * FROM usuario")
 
@@ -66,7 +67,7 @@ def consultaUsuario():
 consultaUsuario()
 
 def consultaPrescripcion():
-    conn =mysql.connector.connect(user='root',password='12345',host='localhost',database='veterinaria')
+    conn =mysql.connector.connect(user='root',password='1234',host='localhost',database='veterinaria')
     mycursor = conn.cursor()
     mycursor.execute("SELECT * FROM prescripcion")
 
@@ -78,7 +79,7 @@ def consultaPrescripcion():
 consultaPrescripcion()
 
 def consultaDosis():
-    conn =mysql.connector.connect(user='root',password='12345',host='localhost',database='veterinaria')
+    conn =mysql.connector.connect(user='root',password='1234',host='localhost',database='veterinaria')
     mycursor = conn.cursor()
     mycursor.execute("SELECT * FROM dosis")
 
@@ -93,14 +94,20 @@ app = Flask(__name__)
 @app.route('/', methods=['GET', 'POST'])
 @app.route('/login', methods=['GET', 'POST'])
 def login():
+    global logueado
+    logueado=False
     if request.method == 'POST':
-        if request.form['username'] == 'admin' or request.form['password'] == 'admin':
-            global logueado
-            logueado = True
+        li = buscarU(listaUsuarios,request.form['username'])
+        print(li[0].admin)
+        if li[0].admin==1:
+            global admin
+            logueado=True
+            admin = True
             return redirect(url_for('principal'))
 
         else:
-            logueado= False
+            logueado= True
+            admin= False
             return redirect(url_for('menuUsuarios'))
     return render_template('login.html')
 
@@ -128,18 +135,21 @@ def separar(num,pagina,count,lista1):
 
 @app.route('/principal')
 def principal():
+    global admin
     global logueado
-    return render_template('principal.html', logueado=logueado,)
+    return render_template('principal.html', admin=admin,logueado=logueado,)
 
 @app.route('/menuUsuarios')
 def menuUsuarios():
-    #global logueado
-    return render_template('menuUsuarios.html')#, logueado=logueado,)
+    global admin
+    global logueado
+    return render_template('menuUsuarios.html',admin=admin,logueado=logueado,)
 
 #================================================================  INCERTARES ==========================================
 @app.route('/insertarAnimal', methods=['GET', 'POST'])
 def insertarAnimal():
     l=[]
+    global admin
     global logueado
     if request.method == 'POST':
         #Para que todos los campos tengan que estar llenos
@@ -153,11 +163,12 @@ def insertarAnimal():
                 x=Animal()
                 x.crear(a,b,c)
                 listaAnimales.append(x)
-    return render_template('insertarAnimal.html', logueado=logueado,)
+    return render_template('insertarAnimal.html', admin=admin,logueado=logueado,)
 
 @app.route('/insertarEnfermedades', methods=['GET', 'POST'])
 def insertarEnfermedades():
     l=[]
+    global admin
     global logueado
     if request.method == 'POST':
         #Para que todos los campos tengan que estar llenos
@@ -171,11 +182,12 @@ def insertarEnfermedades():
                 x=Enfermedad()
                 x.crear(a,b,c)
                 listaEnfermedades.append(x)
-    return render_template('insertarEnfermedades.html', logueado=logueado,)
+    return render_template('insertarEnfermedades.html', admin=admin,logueado=logueado,)
 
 @app.route('/insertarMedicamentos', methods=['GET', 'POST'])
 def insertarMedicamentos():
     l=[]
+    global admin
     global logueado
     if request.method == 'POST':
         #Para que todos los campos tengan que estar llenos
@@ -189,10 +201,11 @@ def insertarMedicamentos():
                 x=Medicamentos()
                 x.crear(a,b,c)
                 listaMedicamentos.append(x)
-    return render_template('insertarMedicamentos.html', logueado=logueado,)
+    return render_template('insertarMedicamentos.html', admin=admin,logueado=logueado,)
 
 @app.route('/insertarUsuario', methods=['GET', 'POST'])
 def insertarUsuario():
+    global admin
     global logueado
     if request.method == 'POST':
         a = request.form['Username']
@@ -203,10 +216,11 @@ def insertarUsuario():
         x = Usuario()
         x.crear(a, b, c, d, e)
         listaUsuarios.append(x)
-    return render_template('insertarUsuario.html', logueado=logueado,)
+    return render_template('insertarUsuario.html', admin=admin,logueado=logueado,)
 
 @app.route('/insertarDosis', methods=['GET', 'POST'])
 def insertarDosis():
+    global admin
     global logueado
     if request.method == 'POST':
         a = request.form['ID']
@@ -218,10 +232,11 @@ def insertarDosis():
         x = Dosis()
         x.crear(a, b, c, w, d, e)
         listaDosis.append(x)
-    return render_template('insertarDosis.html', logueado=logueado,)
+    return render_template('insertarDosis.html', admin=admin,logueado=logueado,)
 
 @app.route('/insertarPrescripcion', methods=['GET', 'POST'])
 def insertarPrescripcion():
+    global admin
     global logueado
     if request.method == 'POST':
         w = request.form['ID']
@@ -233,7 +248,7 @@ def insertarPrescripcion():
         x = Prescripcion()
         x.crear(w, a, b, c, d, e)
         listaPrescripcion.append(x)
-    return render_template('insertarPrescripcion.html', logueado=logueado,)
+    return render_template('insertarPrescripcion.html', admin=admin,logueado=logueado,)
 
 #=======================================================================================================================
 @app.route('/animal/<texto>', methods=['GET', 'POST'])
@@ -244,6 +259,7 @@ def animaliio(texto):
         search = True
     li = []
     palBusc = texto
+    global admin
     global logueado
     li = buscar(listaAnimales, palBusc)
 
@@ -253,7 +269,7 @@ def animaliio(texto):
     # Inicia con todos los elementos
     return render_template('animal.html',
                            animales=animales,
-                           pagination=pagination, listaAnimales=animales,logueado=logueado,
+                           pagination=pagination, listaAnimales=animales,admin=admin,logueado=logueado,
                            )
 
 @app.route('/animal', methods=['GET', 'POST'])
@@ -263,6 +279,7 @@ def animal():
     if q:
         search = True
     li=[]
+    global admin
     global logueado
     if request.method == 'POST':
         #Si no se busca una palabra
@@ -288,7 +305,7 @@ def animal():
 
     return render_template('animal.html',
                            animales=animales,
-                           pagination=pagination,listaAnimales=animales,logueado=logueado,
+                           pagination=pagination,listaAnimales=animales,admin=admin,logueado=logueado,
                            )
 @app.route('/enfermedad', methods=['GET', 'POST'])
 def enfermedad():
@@ -297,6 +314,7 @@ def enfermedad():
     if q:
         search = True
     li=[]
+    global admin
     global logueado
     if request.method == 'POST':
         #Si no se busca una palabra
@@ -322,7 +340,7 @@ def enfermedad():
         pagination = Pagination(page=page, total=len(listaEnfermedades),per_page=5, search=search)
 
     return render_template('enfermedad.html',
-                           pagination=pagination, listaEnfermedades=enfermedad,logueado=logueado,
+                           pagination=pagination, listaEnfermedades=enfermedad,admin=admin,logueado=logueado,
                            )
 
 @app.route('/medicamentos', methods=['GET', 'POST'])
@@ -332,6 +350,7 @@ def medicamentos():
     if q:
         search = True
     li=[]
+    global admin
     global logueado
     if request.method == 'POST':
         #Si no se busca una palabra
@@ -357,7 +376,7 @@ def medicamentos():
         pagination = Pagination(page=page, total=len(listaMedicamentos),per_page=5, search=search)
 
     return render_template('medicamentos.html',
-                           pagination=pagination, listaMedicamentos=medi,logueado=logueado,
+                           pagination=pagination, listaMedicamentos=medi,admin=admin,logueado=logueado,
                            )
 
 @app.route('/usuario')
@@ -366,13 +385,13 @@ def usuario():
     q = request.args.get('q')
     if q:
         search = True
+    global admin
     global logueado
-
     page = request.args.get('page', type=int, default=1)
     user = separar(5,page,len(listaUsuarios),listaUsuarios)
     pagination = Pagination(page=page, total=len(listaUsuarios),per_page=5, search=search)
     return render_template('usuario.html',
-                           pagination=pagination, listaUsuarios=user, logueado=logueado,
+                           pagination=pagination, listaUsuarios=user, admin=admin,logueado=logueado,
                            )
 
 @app.route('/prescripcion', methods=['GET', 'POST'])
@@ -382,6 +401,7 @@ def prescripcion():
     if q:
         search = True
     li = []
+    global admin
     global logueado
     if request.method == 'POST':
         # Si no se busca una palabra
@@ -408,7 +428,7 @@ def prescripcion():
         pagination = Pagination(page=page, total=len(listaPrescripcion), per_page=5, search=search)
 
     return render_template('prescripcion.html',
-                           pagination=pagination, listaPrescripcion=pres, logueado=logueado,
+                           pagination=pagination, listaPrescripcion=pres, admin=admin,logueado=logueado,
                            )
 
 @app.route('/dosis')
@@ -417,12 +437,13 @@ def dosis():
     q = request.args.get('q')
     if q:
         search = True
+    global admin
     global logueado
     page = request.args.get('page', type=int, default=1)
     dos = separar(5,page,len(listaDosis),listaDosis)
     pagination = Pagination(page=page, total=len(listaDosis),per_page=5, search=search)
     return render_template('dosis.html',
-                           pagination=pagination, listaDosis=dos, logueado=logueado,
+                           pagination=pagination, listaDosis=dos, admin=admin,logueado=logueado,
                            )
 
 
