@@ -1,12 +1,26 @@
 <!DOCTYPE html>
+{% if admin %}
 {% if logueado %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Modificar Usuario</title>
 </head>
 <body>
+    <form action="/modificarUsuario" method= "post" class="centrarBorrar">
+		<input type="text" name="Username" placeholder="Username">
+		<button type = "button"> Aceptar </button>
+		<hr>
+        <input type="text" name="Username" placeholder="Username">
+        <input type="password" name="Password" placeholder="Password">
+        <input type="text" name="Nombre" placeholder="Nombre">
+        <input type="text" name="Admin" placeholder="Admin">
+        <input type="text" name="Foto" placeholder="Foto">
+		<button type = "button"> Aceptar </button>
+        <button type = "button"><a href="principal"> Atras </a></button>
+	</form>
 
 </body>
 </html>
+{%endif%}
 {%endif%}

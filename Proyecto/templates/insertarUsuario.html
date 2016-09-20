@@ -4,15 +4,17 @@
 <head>
     <meta charset="UTF-8">
     <title>Insertar Usuario</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename= 'style.css') }}">
 </head>
 <body>
-    <form action="/insertarUsuario" method= "post">
+    <form action="/insertarUsuario" method= "post" class="botonesPrincipal">
         <input type="text" name="Username" placeholder="Username">
         <input type="password" name="Password" placeholder="Password">
         <input type="text" name="Nombre" placeholder="Nombre">
         <input type="text" name="Admin" placeholder="Admin">
         <input type="text" name="Foto" placeholder="Foto">
         <input type="submit" name="boton" value="Accept" class="btn">
+        <button type = "button"><a href="principal"> Atras </a></button>
     </form>
 </body>
 </html>

@@ -5,14 +5,16 @@
 <head>
     <meta charset="UTF-8">
     <title>Insertar Animales</title>
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename= 'style.css') }}">
 </head>
 <body>
-	<form action="/insertarAnimal" method= "post">
+	<form action="/insertarAnimal" method= "post" class="botonesPrincipal">
 
 		<input type="text" name="nombre" placeholder="Nombre">
 		<input type="text" name="descripcion" placeholder="Descripcion">
 		<input type="text" name="foto" placeholder="Foto">
 		<input type="submit" name="boton" value="Accept" class="btn">
+		<button type = "button"><a href="principal"> Atras </a></button>
 	</form>
 
 </body>

@@ -1,12 +1,25 @@
 <!DOCTYPE html>
+{% if admin %}
 {% if logueado %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Modificar Enfermedades</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename= 'style.css') }}">
 </head>
 <body>
+    <form action="/modificarEnfermedades" method= "post" class="centrarBorrar">
+		<input type="text" name="nombre" placeholder="Nombre">
+		<button type = "button"> Aceptar </button>
+		<hr>
+        <input type="text" name="nombre" placeholder="Nombre">
+		<input type="text" name="descripcion" placeholder="Descripcion">
+		<input type="text" name="foto" placeholder="Foto">
+		<button type = "button"> Aceptar </button>
+		<button type = "button"><a href="principal"> Atras </a></button>
+	</form>
 
 </body>
 </html>
+{%endif%}
 {%endif%}

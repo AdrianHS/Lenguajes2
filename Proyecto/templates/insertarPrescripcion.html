@@ -4,9 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <title>Insertar Prescripcion</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename= 'style.css') }}">
 </head>
 <body>
-    <form action="/insertarPrescripcion" method= "post">
+    <form action="/insertarPrescripcion" method= "post" class="botonesPrincipal">
         <input type="text" name="ID" placeholder="ID">
         <input type="text" name="Usuario" placeholder="Usuario">
         <input type="text" name="Animal" placeholder="Animal">
@@ -14,6 +15,7 @@
         <input type="text" name="Peso" placeholder="Peso">
         <input type="text" name="Dosis" placeholder="Dosis">
         <input type="submit" name="boton" value="Accept" class="btn">
+        <button type = "button"><a href="principal"> Atras </a></button>
     </form>
 </body>
 </html>
