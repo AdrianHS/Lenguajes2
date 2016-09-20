@@ -82,12 +82,12 @@ a{
 	margin: 0 auto;
 	width: 920px;
 	height: 920px;
-	color: rgba(109, 127, 239, 1);
+	color: rgba(78, 45, 255, 1);
 }
 .botonesPrincipal button{
 	text-align: center;
 	background-color: rgba(91, 158, 217, 0.3);
-	width: 150px;
+	width: 170px;
 	height: 50px;
 	margin-right: 30px;
 }
@@ -97,7 +97,7 @@ a{
 	margin: 0 auto;
 	width: 320px;
 	height: 320px;
-	color: rgba(109, 127, 239, 1);
+	color: rgba(78, 45, 255, 1);
 }
 .botonesUsuario button {
 	text-align: center;

@@ -19,7 +19,7 @@ admin = False
 logueado = False
 
 def consulta():
-    conn = mysql.connector.connect(user='root',password='1234',host='localhost',database='veterinaria')
+    conn = mysql.connector.connect(user='root',password='12345',host='localhost',database='veterinaria')
     mycursor = conn.cursor()
     mycursor.execute("SELECT * FROM animal")
 
@@ -31,7 +31,7 @@ def consulta():
 consulta()
 
 def consultaEnfermedad():
-    conn =mysql.connector.connect(user='root',password='1234',host='localhost',database='veterinaria')
+    conn =mysql.connector.connect(user='root',password='12345',host='localhost',database='veterinaria')
     mycursor = conn.cursor()
     mycursor.execute("SELECT * FROM enfermedad")
 
@@ -43,7 +43,7 @@ def consultaEnfermedad():
 consultaEnfermedad()
 
 def consultaMedicamentos():
-    conn =mysql.connector.connect(user='root',password='1234',host='localhost',database='veterinaria')
+    conn =mysql.connector.connect(user='root',password='12345',host='localhost',database='veterinaria')
     mycursor = conn.cursor()
     mycursor.execute("SELECT * FROM medicamentos")
 
@@ -55,7 +55,7 @@ def consultaMedicamentos():
 consultaMedicamentos()
 
 def consultaUsuario():
-    conn =mysql.connector.connect(user='root',password='1234',host='localhost',database='veterinaria')
+    conn =mysql.connector.connect(user='root',password='12345',host='localhost',database='veterinaria')
     mycursor = conn.cursor()
     mycursor.execute("SELECT * FROM usuario")
 
@@ -67,7 +67,7 @@ def consultaUsuario():
 consultaUsuario()
 
 def consultaPrescripcion():
-    conn =mysql.connector.connect(user='root',password='1234',host='localhost',database='veterinaria')
+    conn =mysql.connector.connect(user='root',password='12345',host='localhost',database='veterinaria')
     mycursor = conn.cursor()
     mycursor.execute("SELECT * FROM prescripcion")
 
@@ -79,7 +79,7 @@ def consultaPrescripcion():
 consultaPrescripcion()
 
 def consultaDosis():
-    conn =mysql.connector.connect(user='root',password='1234',host='localhost',database='veterinaria')
+    conn =mysql.connector.connect(user='root',password='12345',host='localhost',database='veterinaria')
     mycursor = conn.cursor()
     mycursor.execute("SELECT * FROM dosis")
 
