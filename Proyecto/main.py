@@ -145,7 +145,7 @@ def menuUsuarios():
     global logueado
     return render_template('menuUsuarios.html',admin=admin,logueado=logueado,)
 
-#================================================================  INCERTARES ==========================================
+#================================================================  INSERTARES ==========================================
 @app.route('/insertarAnimal', methods=['GET', 'POST'])
 def insertarAnimal():
     l=[]
