@@ -250,6 +250,59 @@ def insertarPrescripcion():
         listaPrescripcion.append(x)
     return render_template('insertarPrescripcion.html', admin=admin,logueado=logueado,)
 
+@app.route('/borrarAnimal', methods=['GET', 'POST'])
+def borrarAnimal():
+    global admin
+    global logueado
+    if request.method == 'POST':
+        print("xf")
+
+    return render_template('borrarAnimal.html', admin=admin,logueado=logueado,)
+
+@app.route('/borrarDosis', methods=['GET', 'POST'])
+def borrarDosis():
+    global admin
+    global logueado
+    if request.method == 'POST':
+        print("xf")
+
+    return render_template('borrarDosis.html', admin=admin,logueado=logueado,)
+
+@app.route('/borrarEnfermedades', methods=['GET', 'POST'])
+def borrarEnfermedades():
+    global admin
+    global logueado
+    if request.method == 'POST':
+        print("xf")
+
+    return render_template('borrarEnfermedades.html', admin=admin,logueado=logueado,)
+
+@app.route('/borrarMedicamentos', methods=['GET', 'POST'])
+def borrarMedicamentos():
+    global admin
+    global logueado
+    if request.method == 'POST':
+        print("xf")
+
+    return render_template('borrarMedicamentos.html', admin=admin,logueado=logueado,)
+
+@app.route('/borrarPrescripcion', methods=['GET', 'POST'])
+def borrarPrescripcion():
+    global admin
+    global logueado
+    if request.method == 'POST':
+        print("xf")
+
+    return render_template('borrarPrescripcion.html', admin=admin,logueado=logueado,)
+
+@app.route('/borrarUsuario', methods=['GET', 'POST'])
+def borrarUsuario():
+    global admin
+    global logueado
+    if request.method == 'POST':
+        print("xf")
+
+    return render_template('borrarUsuario.html', admin=admin,logueado=logueado,)
 #=======================================================================================================================
 @app.route('/animal/<texto>', methods=['GET', 'POST'])
 def animaliio(texto):
