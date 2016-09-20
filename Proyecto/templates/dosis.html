@@ -17,7 +17,18 @@
             </tr>
         </thead>
         <tbody>
-
+            <form action="/dosis" method= "post">
+                <div class="bus">
+                    <input type="text" name="busc" placeholder="Enfermedad" value="{{ request.form.busc }}">
+                    <input type="submit" name="boton" value="Buscar" class="btn">
+                </div>
+            </form>
+            <form action="/dosis" method= "post">
+                <div class="bus">
+                    <input type="text" name="busc2" placeholder="Animal" value="{{ request.form.busc }}">
+                    <input type="submit" name="boton2" value="Buscar" class="btn">
+                </div>
+            </form>
             {% for a in listaDosis %}
             <tr>
                 <td>{{a.ID}}</td>

@@ -19,9 +19,10 @@ admin = False
 logueado = False
 
 
+
 #========================================================= CARGAR DATOS EN LISTAS ======================================
 def consulta():
-    conn = mysql.connector.connect(user='root',password='12345',host='localhost',database='veterinaria')
+    conn = mysql.connector.connect(user='root',password='1234',host='localhost',database='veterinaria')
     mycursor = conn.cursor()
     mycursor.execute("SELECT * FROM animal")
 
@@ -33,7 +34,7 @@ def consulta():
 consulta()
 
 def consultaEnfermedad():
-    conn =mysql.connector.connect(user='root',password='12345',host='localhost',database='veterinaria')
+    conn =mysql.connector.connect(user='root',password='1234',host='localhost',database='veterinaria')
     mycursor = conn.cursor()
     mycursor.execute("SELECT * FROM enfermedad")
 
@@ -45,7 +46,7 @@ def consultaEnfermedad():
 consultaEnfermedad()
 
 def consultaMedicamentos():
-    conn =mysql.connector.connect(user='root',password='12345',host='localhost',database='veterinaria')
+    conn =mysql.connector.connect(user='root',password='1234',host='localhost',database='veterinaria')
     mycursor = conn.cursor()
     mycursor.execute("SELECT * FROM medicamentos")
 
@@ -57,7 +58,7 @@ def consultaMedicamentos():
 consultaMedicamentos()
 
 def consultaUsuario():
-    conn =mysql.connector.connect(user='root',password='12345',host='localhost',database='veterinaria')
+    conn =mysql.connector.connect(user='root',password='1234',host='localhost',database='veterinaria')
     mycursor = conn.cursor()
     mycursor.execute("SELECT * FROM usuario")
 
@@ -69,7 +70,7 @@ def consultaUsuario():
 consultaUsuario()
 
 def consultaPrescripcion():
-    conn =mysql.connector.connect(user='root',password='12345',host='localhost',database='veterinaria')
+    conn =mysql.connector.connect(user='root',password='1234',host='localhost',database='veterinaria')
     mycursor = conn.cursor()
     mycursor.execute("SELECT * FROM prescripcion")
 
@@ -81,7 +82,7 @@ def consultaPrescripcion():
 consultaPrescripcion()
 
 def consultaDosis():
-    conn =mysql.connector.connect(user='root',password='12345',host='localhost',database='veterinaria')
+    conn =mysql.connector.connect(user='root',password='1234',host='localhost',database='veterinaria')
     mycursor = conn.cursor()
     mycursor.execute("SELECT * FROM dosis")
 
@@ -290,6 +291,7 @@ def insertarPrescripcion():
                                 x.crear(w, a, b, c, d, e)
                                 listaPrescripcion.append(x)
     return render_template('insertarPrescripcion.html', admin=admin,logueado=logueado,)
+
 
 #======================================================  BORRAR ========================================================
 @app.route('/borrarAnimal', methods=['GET', 'POST'])
@@ -590,13 +592,65 @@ def dosis():
         search = True
     global admin
     global logueado
-    page = request.args.get('page', type=int, default=1)
-    dos = separar(5,page,len(listaDosis),listaDosis)
-    pagination = Pagination(page=page, total=len(listaDosis),per_page=5, search=search)
+    if request.method == 'POST':
+        # Si no se busca una palabra
+        if request.form['busc'] == "":
+            page = request.args.get('page', type=int, default=1)
+            dos = separar(5, page, len(listaDosis), listaDosis)
+            pagination = Pagination(page=page, total=len(listaDosis), per_page=5, search=search)
+
+        # Si se busca una palabra
+        else:
+            palBusc = request.form['busc']
+            li = buscarE(listaDosis, palBusc)
+            if(li==[]):
+                li=[[]]
+
+            page = request.args.get('page', type=int, default=1)
+            dos = separar(5, page, len(li), li)
+            pagination = Pagination(page=page, total=len(li), per_page=5, search=search)
+
+    # Inicia con todos los elementos
+    else:
+        page = request.args.get('page', type=int, default=1)
+        dos = separar(5,page,len(listaDosis),listaDosis)
+        pagination = Pagination(page=page, total=len(listaDosis),per_page=5, search=search)
     return render_template('dosis.html',
-                           pagination=pagination, listaDosis=dos, admin=admin,logueado=logueado,
+                           pagination=pagination, listaDosis=dos, admin=admin, logueado=logueado,
                            )
 
+
+@app.route('/revertirA', methods=['GET', 'POST'])
+def revA():
+    revertir()
+    return render_template('principal.html', admin=admin,logueado=logueado,)
+
+
+@app.route('/revertirU', methods=['GET', 'POST'])
+def revU():
+    revertir()
+    return render_template('menuUsuarios.html', admin=admin,logueado=logueado,)
+
+#revertir todos los cambios
+def revertir():
+    global listaUsuarios
+    global listaAnimales
+    global listaEnfermedades
+    global listaMedicamentos
+    global listaPrescripcion
+    global listaDosis
+    listaAnimales=[]
+    listaEnfermedades=[]
+    listaUsuarios = []
+    listaMedicamentos=[]
+    listaPrescripcion = []
+    listaDosis = []
+    consulta()
+    consultaDosis()
+    consultaEnfermedad()
+    consultaMedicamentos()
+    consultaPrescripcion()
+    consultaUsuario()
 
 #Es el encargado de correr el programa
 if __name__ == "__main__":
